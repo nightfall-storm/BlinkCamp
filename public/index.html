@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-bg-theme="dark" data-dot-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,57 +21,65 @@
     </script>
 </head>
 <body>
+    <button id="menu-toggle" title="Toggle menu">✕</button>
+
     <div class="game">
         <div class="dot" id="dot"></div>
     </div>
 
-    <div class="ui-controls">
-        <div class="controls-row">
-            <div class="control-group">
-                <div class="arrow left"></div>
-                <div class="arrow right"></div>
+    <div class="ui-controls" id="ui-controls">
+        <div class="controls-top">
+            <div class="arrow-group">
+                <div class="arrow left" title="Previous routine"></div>
+                <div class="arrow right" title="Next routine"></div>
                 <div class="changeroutine">Change Routine</div>
-                <div class="routinename">Routine Name</div>
             </div>
+            <div class="routinename">Routine Name</div>
 
-            <div class="control-group slider-group">
-                <label>
-                    Speed
-                    <input id="velocityslider" type="range" min="0.25" max="25" value="3" step="0.001">
-                </label>
-                <label>
-                    Size
-                    <input id="sizeslider" type="range" min="0.01" max="10" value="2" step="0.001">
-                </label>
-            </div>
+            <label class="slider-item" title="Movement speed">
+                Speed
+                <input id="velocityslider" type="range" min="0.25" max="25" value="3" step="0.001">
+            </label>
+            <label class="slider-item" title="Dot size">
+                Size
+                <input id="sizeslider" type="range" min="0.01" max="10" value="2" step="0.001">
+            </label>
+        </div>
 
-            <div class="control-group">
-                <label for="theme-selector" class="visually-hidden">Theme</label>
-                <select id="theme-selector">
+        <div class="controls-bottom">
+            <div class="bottom-left">
+                <label for="bg-theme" title="Background color">BG</label>
+                <select id="bg-theme">
                     <option value="dark">Dark</option>
                     <option value="amber">Amber</option>
                     <option value="green">Green</option>
                     <option value="blue">Blue</option>
                     <option value="purple">Purple</option>
                 </select>
-            </div>
+                <label for="dot-theme" title="Dot color">Dot</label>
+                <select id="dot-theme">
+                    <option value="dark">Dark</option>
+                    <option value="amber">Amber</option>
+                    <option value="green">Green</option>
+                    <option value="blue">Blue</option>
+                    <option value="purple">Purple</option>
+                </select>
 
-            <div class="control-group vsync-group">
-                <label>
+                <label class="vsync-label" title="Synchronize with display refresh rate">
                     <input id="vsync-toggle" type="checkbox" checked> V-Sync
                 </label>
                 <label class="fps-cap-label" id="fps-cap-container">
                     FPS
-                    <input id="fps-slider" type="range" min="15" max="144" value="30" step="5">
-                    <span id="fps-value">30</span>
+                    <input id="fps-slider" type="range" min="15" max="240" value="60" step="1" title="Max FPS when V-Sync is off">
+                    <span id="fps-value">60</span>
                 </label>
             </div>
 
-            <div class="control-group social-group">
-                <a href="https://discord.gg/Fea2vU8JFC" target="_blank">
+            <div class="social-group">
+                <a href="https://discord.gg/Fea2vU8JFC" target="_blank" title="Join our Discord">
                     <img src="Assets/discord-icon.svg" class="socialicon" alt="Discord">
                 </a>
-                <a href="https://github.com/ErezShahaf/BlinkCamp" target="_blank">
+                <a href="https://github.com/ErezShahaf/BlinkCamp" target="_blank" title="View on GitHub">
                     <img src="Assets/github-icon.svg" class="socialicon" alt="GitHub">
                 </a>
             </div>

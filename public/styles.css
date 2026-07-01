@@ -8,30 +8,17 @@
     --dot-color: #ffffff;
 }
 
-:root[data-theme="dark"] {
-    --background-color: #0d0d0d;
-    --dot-color: #ffffff;
-}
+:root[data-bg-theme="dark"] { --background-color: #0d0d0d; }
+:root[data-bg-theme="amber"] { --background-color: #1a1200; }
+:root[data-bg-theme="green"] { --background-color: #001a0a; }
+:root[data-bg-theme="blue"] { --background-color: #000d1a; }
+:root[data-bg-theme="purple"] { --background-color: #12001a; }
 
-:root[data-theme="amber"] {
-    --background-color: #1a1200;
-    --dot-color: #ffb700;
-}
-
-:root[data-theme="green"] {
-    --background-color: #001a0a;
-    --dot-color: #00ff88;
-}
-
-:root[data-theme="blue"] {
-    --background-color: #000d1a;
-    --dot-color: #33ccff;
-}
-
-:root[data-theme="purple"] {
-    --background-color: #12001a;
-    --dot-color: #cc66ff;
-}
+:root[data-dot-theme="dark"] { --dot-color: #ffffff; }
+:root[data-dot-theme="amber"] { --dot-color: #ffb700; }
+:root[data-dot-theme="green"] { --dot-color: #00ff88; }
+:root[data-dot-theme="blue"] { --dot-color: #33ccff; }
+:root[data-dot-theme="purple"] { --dot-color: #cc66ff; }
 
 /* ── Base ── */
 body {
@@ -61,6 +48,30 @@ body {
     z-index: 1;
 }
 
+/* ── Menu toggle button ── */
+#menu-toggle {
+    position: fixed;
+    top: 8px;
+    right: 8px;
+    z-index: 20;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+}
+
+#menu-toggle:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
 /* ── UI Controls Overlay ── */
 .ui-controls {
     position: fixed;
@@ -69,23 +80,48 @@ body {
     width: 100%;
     z-index: 10;
     background: rgba(0, 0, 0, 0.7);
-    padding: 8px 16px;
-    min-height: 56px;
+    padding: 6px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transition: transform 0.25s ease;
 }
 
-.controls-row {
+.ui-controls.hidden {
+    transform: translateY(100%);
+}
+
+.controls-top {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: 16px;
+    gap: 8px 16px;
+    min-height: 36px;
 }
 
-.control-group {
+.controls-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px 12px;
+    min-height: 32px;
+}
+
+.bottom-left {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 12px;
+}
+
+/* ── Arrow group (fixed, does not shift with title) ── */
+.arrow-group {
     display: flex;
     align-items: center;
-    gap: 8px;
-    min-height: 44px;
+    gap: 4px;
+    flex-shrink: 0;
 }
 
 /* ── Arrow buttons ── */
@@ -130,11 +166,12 @@ body {
     font-weight: bold;
     font-size: 15px;
     white-space: nowrap;
-    min-width: 80px;
+    min-width: 200px;
+    text-align: left;
 }
 
 /* ── Sliders ── */
-.slider-group label {
+.slider-item {
     display: flex;
     align-items: center;
     gap: 6px;
@@ -148,8 +185,8 @@ input[type="range"] {
     cursor: pointer;
 }
 
-/* ── Theme selector ── */
-#theme-selector {
+/* ── Theme selectors ── */
+#bg-theme, #dot-theme {
     padding: 4px 8px;
     font-size: 14px;
     border-radius: 4px;
@@ -161,7 +198,7 @@ input[type="range"] {
 }
 
 /* ── V-Sync controls ── */
-.vsync-group label {
+.vsync-label {
     display: flex;
     align-items: center;
     gap: 6px;
@@ -181,12 +218,6 @@ input[type="range"] {
     align-items: center;
     gap: 6px;
     font-size: 13px;
-}
-
-.fps-cap-label label {
-    display: flex;
-    align-items: center;
-    gap: 4px;
 }
 
 #fps-slider {
@@ -227,21 +258,16 @@ input[type="range"] {
 
 /* ── Responsive: tablet portrait ── */
 @media (max-width: 768px) {
-    .controls-row {
-        gap: 8px;
+    .controls-top {
+        gap: 6px 10px;
     }
 
-    .control-group {
-        gap: 4px;
+    .controls-bottom {
+        gap: 4px 8px;
     }
 
-    .slider-group {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .slider-group label {
-        width: auto;
+    .bottom-left {
+        gap: 4px 8px;
     }
 
     input[type="range"] {
@@ -255,38 +281,47 @@ input[type="range"] {
 
     .routinename {
         font-size: 13px;
-        min-width: 60px;
+        min-width: 160px;
+    }
+
+    .changeroutine {
+        font-size: 13px;
     }
 }
 
 /* ── Responsive: phone ── */
 @media (max-width: 480px) {
     .ui-controls {
-        padding: 4px 8px;
-        min-height: 48px;
+        padding: 4px 6px;
+        gap: 2px;
     }
 
-    .controls-row {
-        gap: 4px;
+    .controls-top {
+        gap: 4px 6px;
+        min-height: 30px;
     }
 
-    .control-group {
-        min-height: 36px;
-        gap: 3px;
+    .controls-bottom {
+        gap: 3px 6px;
+        min-height: 26px;
+    }
+
+    .bottom-left {
+        gap: 3px 6px;
     }
 
     .arrow {
-        padding: 8px;
-        min-width: 16px;
-        min-height: 16px;
+        padding: 6px;
+        min-width: 14px;
+        min-height: 14px;
     }
 
     .arrow.left {
-        border-width: 8px 16px 8px 0;
+        border-width: 7px 14px 7px 0;
     }
 
     .arrow.right {
-        border-width: 8px 0 8px 16px;
+        border-width: 7px 0 7px 14px;
     }
 
     .changeroutine {
@@ -295,39 +330,39 @@ input[type="range"] {
 
     .routinename {
         font-size: 11px;
-        min-width: 50px;
+        min-width: 130px;
     }
 
-    .slider-group label {
+    .slider-item {
         font-size: 11px;
     }
 
     input[type="range"] {
         width: 60px;
-        height: 16px;
+        height: 14px;
     }
 
-    #theme-selector {
+    #bg-theme, #dot-theme {
         font-size: 11px;
-        padding: 2px 6px;
-        min-height: 28px;
-    }
-
-    .vsync-group label {
-        font-size: 11px;
+        padding: 1px 4px;
+        min-height: 24px;
     }
 
     #vsync-toggle {
-        width: 16px;
-        height: 16px;
+        width: 14px;
+        height: 14px;
+    }
+
+    .fps-cap-label {
+        font-size: 11px;
     }
 
     #fps-slider {
-        width: 60px;
+        width: 50px;
     }
 
     .socialicon {
-        width: 24px;
-        height: 24px;
+        width: 22px;
+        height: 22px;
     }
 }

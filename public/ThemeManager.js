@@ -1,15 +1,28 @@
-const THEME_STORAGE_KEY = 'blinkcamp-theme';
-const applyTheme = (theme) => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem(THEME_STORAGE_KEY, theme);
+import { updatePreferences, getPreferences } from "./PreferencesManager.js";
+const applyBg = (value) => {
+    document.documentElement.setAttribute('data-bg-theme', value);
+};
+const applyDot = (value) => {
+    document.documentElement.setAttribute('data-dot-theme', value);
 };
 export const initThemeManager = () => {
-    const saved = localStorage.getItem(THEME_STORAGE_KEY);
-    const initial = saved || 'dark';
-    applyTheme(initial);
-    const selector = document.getElementById('theme-selector');
-    if (selector) {
-        selector.value = initial;
-        selector.addEventListener('change', () => applyTheme(selector.value));
+    const prefs = getPreferences();
+    applyBg(prefs.bgTheme);
+    applyDot(prefs.dotTheme);
+    const bgSel = document.getElementById('bg-theme');
+    const dotSel = document.getElementById('dot-theme');
+    if (bgSel) {
+        bgSel.value = prefs.bgTheme;
+        bgSel.addEventListener('change', () => {
+            applyBg(bgSel.value);
+            updatePreferences({ bgTheme: bgSel.value });
+        });
+    }
+    if (dotSel) {
+        dotSel.value = prefs.dotTheme;
+        dotSel.addEventListener('change', () => {
+            applyDot(dotSel.value);
+            updatePreferences({ dotTheme: dotSel.value });
+        });
     }
 };

@@ -38,4 +38,9 @@ window.addEventListener('Game:RightArrowClick', () => {
     RoutineManager.currentRoutineIndex = (RoutineManager.currentRoutineIndex + 1) % RoutineManager.activeDotRoutines.length;
     window.dispatchEvent(RoutineChanged);
 });
+export const setRoutineIndex = (index) => {
+    const clamped = Math.max(0, Math.min(index, RoutineManager.activeDotRoutines.length - 1));
+    RoutineManager.currentRoutineIndex = clamped;
+    window.dispatchEvent(RoutineChanged);
+};
 export default RoutineManager;
