@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --watch \"src/**/*.ts\" --exec \"pnpm exec tsc\"",
+    "start": "pnpm dlx serve public/",
     "deploy": "wrangler deploy",
     "preview": "wrangler dev"
   },
