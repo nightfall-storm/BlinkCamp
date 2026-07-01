@@ -33,8 +33,11 @@ const InitializeScene = () => {
     }));
     // Apply saved menu state
     const ui = document.getElementById("ui-controls");
-    if (prefs.menuHidden)
+    const menuBtn = document.getElementById("menu-toggle");
+    if (prefs.menuHidden) {
         ui.classList.add("hidden");
+        menuBtn.textContent = "☰";
+    }
     // Detect actual refresh rate (overrides saved FPS if different)
     DetectRefreshRate();
 };
@@ -43,6 +46,7 @@ const SetMenuToggle = () => {
     const ui = document.getElementById("ui-controls");
     btn.addEventListener("pointerdown", () => {
         const hidden = ui.classList.toggle("hidden");
+        btn.textContent = hidden ? "☰" : "✕";
         updatePreferences({ menuHidden: hidden });
     });
 };

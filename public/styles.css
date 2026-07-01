@@ -126,33 +126,23 @@ body {
 
 /* ── Arrow buttons ── */
 .arrow {
-    width: 0;
-    height: 0;
-    border-style: solid;
     cursor: pointer;
-    min-width: 20px;
-    min-height: 20px;
-    padding: 12px;
-    background-clip: content-box;
     touch-action: manipulation;
-}
-
-.arrow.left {
-    border-width: 10px 20px 10px 0;
-    border-color: transparent white transparent transparent;
-}
-
-.arrow.right {
-    border-width: 10px 0 10px 20px;
-    border-color: transparent transparent transparent white;
+    font-size: 22px;
+    line-height: 1;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .arrow:hover {
-    transform: scale(1.2);
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .arrow:active {
-    transform: scale(0.95);
+    transform: scale(0.9);
 }
 
 /* ── Labels ── */
@@ -311,17 +301,8 @@ input[type="range"] {
     }
 
     .arrow {
-        padding: 6px;
-        min-width: 14px;
-        min-height: 14px;
-    }
-
-    .arrow.left {
-        border-width: 7px 14px 7px 0;
-    }
-
-    .arrow.right {
-        border-width: 7px 0 7px 14px;
+        font-size: 18px;
+        padding: 4px 8px;
     }
 
     .changeroutine {
