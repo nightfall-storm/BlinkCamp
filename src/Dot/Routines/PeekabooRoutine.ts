@@ -11,8 +11,11 @@ export const PeekabooRoutine : IDotRoutine = {
     if(relativeTimeLeft < 0)
     {
         relativeTimeLeft = relativeSpawnTime;
-        dot.X = GetRandomNumberInBetween(-maxXandY,maxXandY) + dot.halfScreen;
-        dot.Y = GetRandomNumberInBetween(-maxXandY,maxXandY) + dot.halfScreen;
+        dot.X = GetRandomNumberInBetween(-maxXandY, maxXandY) + dot.halfScreen;
+        dot.Y = Math.min(
+            GetRandomNumberInBetween(-maxXandY, maxXandY) + dot.halfScreen,
+            dot.safeAreaMaxY - dot.Radius
+        );
     }
   },
   title: 'Peeka-boo!',

@@ -10,12 +10,13 @@ export const ElasticCollisionRoutine : IDotRoutine = {
     dot.X += velocityX * dot.velocity;
     dot.Y += velocityY * dot.velocity;
 
-    if(dot.Y + dot.Radius >= 100 || dot.Y - dot.Radius <= 0)
+    const yMax = dot.safeAreaMaxY;
+    if (dot.Y + dot.Radius >= yMax || dot.Y - dot.Radius <= 0)
     {
         velocityY = -velocityY;
         dot.Y += velocityY * dot.velocity * dot.dTime;
     }
-    if(dot.X + dot.Radius >= 100 || dot.X - dot.Radius <= 0)
+    if (dot.X + dot.Radius >= 100 || dot.X - dot.Radius <= 0)
     {
         velocityX = -velocityX;
         dot.X += velocityX * dot.velocity * dot.dTime;

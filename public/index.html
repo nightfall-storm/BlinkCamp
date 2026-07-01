@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +8,6 @@
     <link rel="icon" type="image/svg+xml" href="Assets/dot.svg">
     <title>BlinkCamp - Free Online Eye Muscles And Vision Training Exercises</title>
     <meta name="description" content="BlinkCamp Is A Free Online Software That Helps Individuals Acheive Great Results For Eye Treatment And Visual Improvement. Try It Out Now!">
-    <html lang='en'>
     <meta name="keywords" content="eye training exercises,online eye exercises, vision exercises,eye strain exercises,
     online eye trainer, BlinkCamp, lazy eye exercises">
     <!-- Google tag (gtag.js) -->
@@ -22,35 +21,64 @@
     </script>
 </head>
 <body>
-    <!-- <div id="videoplayercontainer">
-        <div id="videoplayer"></div>
-    </div> -->
     <div class="game">
         <div class="dot" id="dot"></div>
     </div>
-    <div class="ui">
-        <div class="arrow left"></div>
-        <div class="arrow right"></div>
-        <div id="velocitytext">Speed</div>
-        <input id="velocityslider" type="range" min="0.25" max="25" value="3" step="0.001">
-        <div id="sizetext">Size</div>
-        <input id="sizeslider" type="range" min="0.01" max="10" value="2" step="0.001">
-        <div class="changeroutine">Change Routine</div>
-        <div class="routinename">Routine Name</div>
-        <!-- <div class="backgroundvideo">Background Video</div> -->
-        <!-- <input type="checkbox" class="backgroundvideotick" checked></div> -->
-        <!-- <div class="notifications">Set Daily Reminders</div>
-        <button class="notifications" id="notifications-button"></button> -->
-        <a href="https://discord.gg/Fea2vU8JFC" target="_blank">
-            <img src="Assets/discord-icon.svg" class="socialicon" id="discord-icon" alt="Blinkcamp discord icon">
-        </a>
-        <a href="https://github.com/ErezShahaf/BlinkCamp" target="_blank">
-            <img src="Assets/github-icon.svg" class="socialicon" id="github-icon" alt="Blinkcamp github repository icon">
-        </a>
+
+    <div class="ui-controls">
+        <div class="controls-row">
+            <div class="control-group">
+                <div class="arrow left"></div>
+                <div class="arrow right"></div>
+                <div class="changeroutine">Change Routine</div>
+                <div class="routinename">Routine Name</div>
+            </div>
+
+            <div class="control-group slider-group">
+                <label>
+                    Speed
+                    <input id="velocityslider" type="range" min="0.25" max="25" value="3" step="0.001">
+                </label>
+                <label>
+                    Size
+                    <input id="sizeslider" type="range" min="0.01" max="10" value="2" step="0.001">
+                </label>
+            </div>
+
+            <div class="control-group">
+                <label for="theme-selector" class="visually-hidden">Theme</label>
+                <select id="theme-selector">
+                    <option value="dark">Dark</option>
+                    <option value="amber">Amber</option>
+                    <option value="green">Green</option>
+                    <option value="blue">Blue</option>
+                    <option value="purple">Purple</option>
+                </select>
+            </div>
+
+            <div class="control-group vsync-group">
+                <label>
+                    <input id="vsync-toggle" type="checkbox" checked> V-Sync
+                </label>
+                <label class="fps-cap-label" id="fps-cap-container">
+                    FPS
+                    <input id="fps-slider" type="range" min="15" max="144" value="30" step="5">
+                    <span id="fps-value">30</span>
+                </label>
+            </div>
+
+            <div class="control-group social-group">
+                <a href="https://discord.gg/Fea2vU8JFC" target="_blank">
+                    <img src="Assets/discord-icon.svg" class="socialicon" alt="Discord">
+                </a>
+                <a href="https://github.com/ErezShahaf/BlinkCamp" target="_blank">
+                    <img src="Assets/github-icon.svg" class="socialicon" alt="GitHub">
+                </a>
+            </div>
+        </div>
     </div>
 </body>
 <script src="https://www.youtube.com/iframe_api"></script>
-<!-- <script src="./BackgroundVideo.js"></script> -->
 <script src="./Engine/GameLoop.js" type="module"></script>
 <script src="./Game.js" type="module"></script>
 </html>

@@ -6,7 +6,8 @@ export const ElasticCollisionRoutine = {
     Execute: function (dot) {
         dot.X += velocityX * dot.velocity;
         dot.Y += velocityY * dot.velocity;
-        if (dot.Y + dot.Radius >= 100 || dot.Y - dot.Radius <= 0) {
+        const yMax = dot.safeAreaMaxY;
+        if (dot.Y + dot.Radius >= yMax || dot.Y - dot.Radius <= 0) {
             velocityY = -velocityY;
             dot.Y += velocityY * dot.velocity * dot.dTime;
         }

@@ -1,78 +1,94 @@
 import { Dot } from "./Dot/Dot.js";
 import { SubscribeToRoutineChangedEvent } from "./RoutineTitleFollower.js";
-import { SubscribeToNotificationsButtonClick } from "./PushNotifications.js";
+import { initThemeManager } from "./ThemeManager.js";
 
-const InitializeScene = ():void  => 
+const InitializeScene = (): void =>
 {
     new Dot(document.getElementById("dot")!);
-    // TODO
-    // Creat UIEventDispatcher class (component base type) and move them there, and change the name of this class to GameScene.
+
     SetLeftArrowEvent();
     SetRightArrowEvent();
     SetVelocityChangeEvent();
     SetRadiusChangeEvent();
-    // SetReminderButtonEvent();
 
-    // TODO
-    // Create a component base class which has awake and update methods, and instantiate those classes instead.
+    initThemeManager();
+    SetupVsyncControls();
     SubscribeToRoutineChangedEvent();
-    SubscribeToNotificationsButtonClick();
-}
-
-const SetLeftArrowEvent = () :void => 
-{
-    const leftArrowClickEvent = new CustomEvent('Game:LeftArrowClick');
-    const leftArrow: HTMLDivElement = document.querySelector(".arrow.left") as HTMLDivElement;
-    leftArrow.addEventListener("click", () => {
-        window.dispatchEvent(leftArrowClickEvent);
-      });
-}
-
-const SetRightArrowEvent = () : void => 
-{
-    const rightArrowClickEvent = new CustomEvent('Game:RightArrowClick');
-    const rightArrow = document.querySelector(".arrow.right") as HTMLDivElement;
-    rightArrow.addEventListener("click", () => {
-        window.dispatchEvent(rightArrowClickEvent);
-    });
-}
-
-const SetVelocityChangeEvent = () => {
-  const velocitySlider = document.getElementById("velocityslider") as HTMLInputElement;
-  const velocityValueChanged = new CustomEvent('Game:VelocityValueChanged', {
-    detail: {
-      velocity: velocitySlider.value
-    }
-  });
-
-  velocitySlider.addEventListener("input", () => {
-    velocityValueChanged.detail.velocity = velocitySlider.value;
-    window.dispatchEvent(velocityValueChanged);
-  });
 };
 
-const SetRadiusChangeEvent = () => {
-  const radiusSlider = document.getElementById("sizeslider") as HTMLInputElement;
-  const radiusValueChanged = new CustomEvent('Game:RadiusValueChanged', {
-    detail: {
-      radius: radiusSlider.value
-    }
-  });
-
-  radiusSlider.addEventListener("input", () => {
-    radiusValueChanged.detail.radius = radiusSlider.value;
-    window.dispatchEvent(radiusValueChanged);
-  });
+const SetLeftArrowEvent = (): void =>
+{
+    const event = new CustomEvent('Game:LeftArrowClick');
+    const el = document.querySelector(".arrow.left") as HTMLDivElement;
+    el.addEventListener("pointerdown", (e) =>
+    {
+        e.preventDefault();
+        window.dispatchEvent(event);
+    });
 };
 
-
-const SetReminderButtonEvent = () : void => 
+const SetRightArrowEvent = (): void =>
 {
-    const notificationsClickEvent = new CustomEvent('Game:NotificationsButtonClick');
-    const button = document.getElementById("notifications-button") as HTMLDivElement;
-    button.addEventListener("click", () => {
-        window.dispatchEvent(notificationsClickEvent);
+    const event = new CustomEvent('Game:RightArrowClick');
+    const el = document.querySelector(".arrow.right") as HTMLDivElement;
+    el.addEventListener("pointerdown", (e) =>
+    {
+        e.preventDefault();
+        window.dispatchEvent(event);
     });
-}
+};
+
+const SetVelocityChangeEvent = (): void =>
+{
+    const slider = document.getElementById("velocityslider") as HTMLInputElement;
+    const event = new CustomEvent('Game:VelocityValueChanged', {
+        detail: { velocity: slider.value }
+    });
+    slider.addEventListener("input", () =>
+    {
+        event.detail.velocity = slider.value;
+        window.dispatchEvent(event);
+    });
+};
+
+const SetRadiusChangeEvent = (): void =>
+{
+    const slider = document.getElementById("sizeslider") as HTMLInputElement;
+    const event = new CustomEvent('Game:RadiusValueChanged', {
+        detail: { radius: slider.value }
+    });
+    slider.addEventListener("input", () =>
+    {
+        event.detail.radius = slider.value;
+        window.dispatchEvent(event);
+    });
+};
+
+const SetupVsyncControls = (): void =>
+{
+    const toggle = document.getElementById("vsync-toggle") as HTMLInputElement;
+    const fpsSlider = document.getElementById("fps-slider") as HTMLInputElement;
+    const fpsValue = document.getElementById("fps-value") as HTMLSpanElement;
+    const fpsContainer = document.getElementById("fps-cap-container") as HTMLElement;
+
+    const dispatch = (): void =>
+    {
+        const enabled = toggle.checked;
+        const targetFps = parseInt(fpsSlider.value);
+
+        window.dispatchEvent(new CustomEvent('Game:VsyncToggled', {
+            detail: { enabled, targetFps }
+        }));
+
+        fpsContainer.style.display = enabled ? "none" : "flex";
+    };
+
+    toggle.addEventListener("change", dispatch);
+    fpsSlider.addEventListener("input", () =>
+    {
+        fpsValue.textContent = fpsSlider.value;
+        if (!toggle.checked) dispatch();
+    });
+};
 
 InitializeScene();

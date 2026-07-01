@@ -1,4 +1,4 @@
-import { Dot } from "../Dot";
+import { Dot } from "../Dot.js";
 import { IDotRoutine } from "../IDotRoutine.js";
 const Amplitude = 25;
 let lastPhaseAngle: number = 0;

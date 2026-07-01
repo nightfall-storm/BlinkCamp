@@ -1,4 +1,4 @@
-import { Dot } from "../Dot";
+import { Dot } from "../Dot.js";
 import { IDotRoutine } from "../IDotRoutine.js";
 import { GetRandomNumberInBetween } from "../../Utils/NumberUtils.js";
 
