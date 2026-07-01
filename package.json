@@ -5,13 +5,16 @@
   "main": "dot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --watch \"src/**/*.ts\" --exec \"pnpm exec tsc\""
+    "dev": "nodemon --watch \"src/**/*.ts\" --exec \"pnpm exec tsc\"",
+    "deploy": "wrangler deploy",
+    "preview": "wrangler dev"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^3.1.14",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "wrangler": "^4.106.0"
   }
 }
